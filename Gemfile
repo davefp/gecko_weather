@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem 'xml-simple'
 
+gem 'flickraw'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
