@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class FlickrController < ApplicationController
 
 	respond_to :jpg
@@ -9,9 +11,10 @@ class FlickrController < ApplicationController
 		user_id = flickr.people.findByUsername(:username => params[:id]).id
 		
 		photos = flickr.people.getPublicPhotos :user_id => user_id
-		
-		redirect_to FlickRaw.url_b photos[rand(photos.size)]
-		
+		response.headers['Cache-Control'] = "public, max-age=#{12.hours.to_i}"
+		response.headers['Content-Type'] = 'image/jpeg'
+		response.headers['Content-Disposition'] = 'inline'
+		render :text => open(FlickRaw.url_b(photos[rand(photos.size)])).read
 	end
 
 end
