@@ -1,6 +1,7 @@
 GeckoWeather::Application.routes.draw do
   
   match 'weather/:id' => 'weather#get'
+  match 'weather/:id/scale' => 'weather#get_scale'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
