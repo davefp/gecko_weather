@@ -8,7 +8,8 @@ class WeatherController < ApplicationController
 	def get
 		@raw_weather_data = open("http://weather.yahooapis.com/forecastrss?w=#{params[:id]}&u=c").read
 		@wd = XmlSimple.xml_in(@raw_weather_data, { 'ForceArray' => false })['channel']['item']['condition']
-		@weather_text = {'item' => {'text' => "#{@wd['temp']}&deg;<br /> #{@wd['text']}"}}
+		#{"item":{"text":"<div class='t-size-x72'>-6&deg;</div><div>Cloudy</div>"}}
+		@weather_text = {'item' => {'text' => "<div class='t-size-x72'>#{@wd['temp']}&deg;</div><div>#{@wd['text']}</div>"}}
 		respond_with @weather_text
 	end
 end
