@@ -46,6 +46,7 @@
       <ol>
         <li>Find your location's WOEID: <a href="http://woeid.rosselliot.co.nz/">WOEID Lookup</a></li>
         <li>Enter it here: <input name='woeid-entry' onkeyup='generateUrl()' onchange='generateUrl()' on /></li>
+        <li>Choose your preferred temperature format: <input id='f' type='radio' name='group1' value='f' onchange='generateUrl()' /><label for="f">&deg;F</label><input id='c' type='radio' name='group1' value='c' onchange='generateUrl()' checked /><label for="c">&deg;C</label></li>
         <li>Copy this URL: <input name='url-output' class='wide' readonly='readonly' /></li>
         <li>Create a new custom text widget on your Geckoboard</li>
         <li>Paste the URL into the URL Data Feed field</li>
@@ -77,10 +78,16 @@
         </div>
     <script>
     
-      function generateUrl()
-      {
+      function generateUrl() {
+
         var woeid = document.forms[0].elements["woeid-entry"].value
-        document.forms[0].elements["url-output"].value = "http://gecko-weather.heroku.com/weather/" + woeid + ".json"
+        var unit
+        if(document.forms[0].elements["f"].checked) {
+            unit = 'f'
+        } else {
+            unit='c'
+        }
+        document.forms[0].elements["url-output"].value = "http://gecko-weather.heroku.com/weather/" + woeid + ".json?unit=" + unit
       }
     
     </script>
